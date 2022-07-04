@@ -5,8 +5,8 @@ import './header.scss';
 const Header = ({ weekDates }) => {
   const getMonth = () => {
     if(weekDates[0].getMonth() !== weekDates[6].getMonth()) {
-      `${moment(weekDates[0]).format("MMMM")} - ${moment(weekDates[6]).format("MMMM")}`  
-  } return `${moment(weekDates[0]).format("MMMM")}`
+      `${moment(weekDates[0]).format("MMM")} - ${moment(weekDates[6]).format("MMM")}`  
+  } return `${moment(weekDates[0]).format("MMM")}`
   }
 
   return (
