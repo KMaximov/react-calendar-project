@@ -14,10 +14,10 @@ class App extends Component {
   render() {
     const { weekStartDate } = this.state;
     const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-
+    
     return (
       <>
-        <Header />
+        <Header weekDates={weekDates}/>
         <Calendar weekDates={weekDates} />
       </>
     );
