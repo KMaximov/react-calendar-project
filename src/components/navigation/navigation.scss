@@ -8,10 +8,25 @@
     height: 100px;
     padding-left: 48px;
   }
-
+  
   &__day {
     position: relative;
     flex: 1;
     border-left: 1px solid #eee;
   }
+}
+
+.day-label__day-number_today {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 60%;
+  color:white;
+  border-radius: 50%;
+  background-color: blue;
+}
+
+.day-label__day-name_today {
+  color: blue;
 }
