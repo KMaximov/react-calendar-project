@@ -3,6 +3,12 @@ import moment from 'moment';
 import './header.scss';
 
 const Header = ({ weekDates }) => {
+  // const onToday = (event) => {
+  //   if (event.target.className === "navigation__today-btn button") {
+
+  //   }
+  // }
+
   const getMonth = () => {
     if(weekDates[0].getMonth() !== weekDates[6].getMonth()) {
       `${moment(weekDates[0]).format("MMM")} - ${moment(weekDates[6]).format("MMM")}`  
