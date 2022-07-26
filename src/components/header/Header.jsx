@@ -2,8 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import './header.scss';
 
-const Header = ({ weekDates, setWeekDate, weekStartDate }) => {
-
+const Header = ({ weekDates, setWeekDate, weekStartDate, displayModal }) => {
   const changeWeek = (event) => {
     if (event.target.className === "navigation__today-btn button") {
       setWeekDate(new Date())
@@ -22,7 +21,7 @@ const Header = ({ weekDates, setWeekDate, weekStartDate }) => {
 
   return (
     <header className="header">
-      <button className="button create-event-btn">
+      <button className="button create-event-btn" onClick={displayModal}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>
       <div className="navigation">
