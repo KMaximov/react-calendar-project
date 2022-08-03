@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
+import { fetchDeleteEvent } from '../../gateway/events';
 import './event.scss';
 
-const Event = ({ height, marginTop, title, time, description }) => {
+const Event = ({ height, marginTop, title, time, description, updateEvents, id }) => {
   const eventStyle = {
     height,
     marginTop,
@@ -10,27 +10,31 @@ const Event = ({ height, marginTop, title, time, description }) => {
 
   const [eventVisibility, setEventVisibility] = useState({
     showDeleteBtn: false,
-    showEvent: true,
+    showEventData: true,
   })
 
   const showEvent = () => {
     setEventVisibility({
       showDeleteBtn: !eventVisibility.showDeleteBtn,
-      showEvent: true,
+      showEventData: true,
     })
   }
 
-  const deleteEvent = (e) => {
+  const deleteEvent = e => {
     e.stopPropagation();
+
     setEventVisibility({
       showDeleteBtn: false,
-      showEvent: false,
+      showEventData: false,
     })
+
+    fetchDeleteEvent(id);
+    updateEvents();
   }
 
   return (
     <>
-      {eventVisibility.showEvent && (
+      {eventVisibility.showEventData && (
         <>
           <div style={eventStyle} className="event" onClick={showEvent}>
             <div className="event__title">{title}</div>

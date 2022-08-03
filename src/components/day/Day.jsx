@@ -4,7 +4,7 @@ import RedLine from '../redLine/RedLine';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayEvents, dayStart }) => {
+const Day = ({ dataDay, dayEvents, dayStart, updateEvents }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -23,7 +23,13 @@ const Day = ({ dataDay, dayEvents, dayStart }) => {
         );
         
         return (
-          <Hour key={dataDay + hour} dataHour={hour} hourEvents={hourEvents} dayStart={dayStart} />
+          <Hour 
+            key={dataDay + hour}
+            dataHour={hour} 
+            hourEvents={hourEvents} 
+            dayStart={dayStart} 
+            updateEvents={updateEvents}
+          />
         );
       })}
     </div>

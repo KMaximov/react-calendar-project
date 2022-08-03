@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './modal.scss';
 import moment from 'moment';
-import events from '../../gateway/events';
+import { fetchCreateEvent } from '../../gateway/events';
 
-const Modal = ( { displayModal }) => {
-
+const Modal = ( { displayModal, updateEvents }) => {
   const [title, setTitle] = useState('');
   const [desctiption, setDescription] = useState('');
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
@@ -31,23 +30,23 @@ const Modal = ( { displayModal }) => {
     setEndTime(event.target.value)
   }
 
-  const createEvent = event => {
-    event.preventDefault()
+  const createEvent = async e => {
+    e.preventDefault();
 
     const [year, month, day] = date.split('-')
     const [startHours, startMinutes] = startTime.split(':')
     const [endHours, endMinutes] = endTime.split(':')
 
     const eventData = {
-      id: events.length + 1,
       title,
       desctiption,
       dateFrom: new Date(year, month - 1, day, startHours, startMinutes),
       dateTo: new Date(year, month - 1, day, endHours, endMinutes)
     }
 
-    events.push(eventData)
     displayModal();
+    await fetchCreateEvent(eventData);
+    await updateEvents();
   }
 
   return (
