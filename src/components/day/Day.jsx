@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Hour from '../hour/Hour';
 import RedLine from '../redLine/RedLine';
 
@@ -35,5 +36,12 @@ const Day = ({ dataDay, dayEvents, dayStart, updateEvents }) => {
     </div>
   );
 };
+
+Day.propTypes = {
+  dataDay: PropTypes.number,
+  dayEvents: PropTypes.array,
+  dayStart: PropTypes.object,
+  updateEvents: PropTypes.func,
+}
 
 export default Day;

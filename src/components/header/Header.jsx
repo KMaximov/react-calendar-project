@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import './header.scss';
 
@@ -39,5 +40,12 @@ const Header = ({ weekDates, setWeekDate, weekStartDate, displayModal }) => {
     </header>
   );
 };
+
+Header.propTypes = {
+  weekDates: PropTypes.array,
+  setWeekDate: PropTypes.func,
+  weekStartDate: PropTypes.object,
+  displayModal: PropTypes.func,
+}
 
 export default Header;

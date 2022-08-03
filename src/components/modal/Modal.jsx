@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './modal.scss';
 import moment from 'moment';
 import { fetchCreateEvent } from '../../gateway/events';
@@ -102,6 +103,11 @@ const Modal = ( { displayModal, updateEvents }) => {
         </div>
       </div>   
   )
+}
+
+Modal.propTypes = {
+  displayModal: PropTypes.func,
+  updateEvents: PropTypes.func,
 }
 
 export default Modal;

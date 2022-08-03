@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Navigation from './../navigation/Navigation';
 import Week from '../week/Week';
@@ -25,3 +26,9 @@ const Calendar = ({ weekDates, events, updateEvents }) => {
 }
 
 export default Calendar;
+
+Calendar.prototype = {
+  weekDates: PropTypes.array.isRequired,
+  events: PropTypes.array.isRequired,
+  updateEvents: PropTypes.func.isRequired,
+}
