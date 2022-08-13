@@ -18,7 +18,6 @@ const Day = ({ dataDay, dayEvents, dayStart, updateEvents }) => {
     <div className="calendar__day" data-day={dataDay}>
       {isToday && <RedLine />}
       {hours.map((hour) => {
-        //getting all events from the day we will render
         const hourEvents = dayEvents.filter(
           (event) => event.dateFrom.getHours() === hour
         );

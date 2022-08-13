@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { fetchDeleteEvent } from '../../gateway/events';
 import './event.scss';
 
-const Event = ({ height, marginTop, title, time, description, updateEvents, id }) => {
+const Event = ({ height, marginTop, title, time, updateEvents, id }) => {
   const eventStyle = {
     height,
     marginTop,
@@ -41,12 +41,9 @@ const Event = ({ height, marginTop, title, time, description, updateEvents, id }
             <div className="event__title">{title}</div>
             <div className="event__time">{time}</div>
             {eventVisibility.showDeleteBtn && (
-              <>
-              <div className="event__description">{description}</div>
               <button className="delete__event-btn">
                 <i className="fas fa-trash-alt" onClick={deleteEvent}>Delete</i>
               </button>
-              </>
             )}
           </div>
         </>

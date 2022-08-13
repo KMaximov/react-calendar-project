@@ -12,7 +12,6 @@ const Week = ({ weekDates, events, updateEvents }) => {
           dayStart.getHours() + 24
         );
         
-        //getting all events from the day we will render
         const dayEvents = events.filter(
           (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
         );

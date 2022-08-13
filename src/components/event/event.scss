@@ -14,16 +14,6 @@
     white-space: nowrap;
     margin-bottom: 8px;
   }
-  &__description {
-    position: relative;
-    font-weight: normal;
-    top: -20px;
-    background-color: cornflowerblue;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: 0px;
-  }
 
   &:hover {
     font-weight: bold;
@@ -33,8 +23,8 @@
 
 .delete__event-btn {
   position: relative;
-  top: -42px;
-  right: -80px;
+  top: 10px;
+  left: 150px;
   cursor: pointer;
   border: none;
 }
