@@ -1,38 +1,31 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
 import moment from 'moment';
-import { fetchCreateEvent } from '../../gateway/events';
+import { createEvent } from '../../gateway/events';
 
-const Modal = ( { displayModal, updateEvents }) => {
-  const [title, setTitle] = useState('');
-  const [desctiption, setDescription] = useState('');
-  const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-  const [startTime, setStartTime] = useState(moment(new Date()).format(`HH:MM`));
-  const [endTime, setEndTime] = useState(moment(new Date()).format('HH:MM'))
-
-  const changeHandler = event => {
-    if(event.target.name === 'title') {
-      setTitle(event.target.value);
-      return;
+class Modal extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '',
+      description: '',
+      date: moment(new Date()).format('YYYY-MM-DD'),
+      startTime: moment(new Date()).format(`HH:MM`),
+      endTime: moment(new Date()).format(`HH:MM`),
     }
-    setDescription(event.target.value);
   }
 
-  const changeDate = event => {
-    setDate(event.target.value)
+  changeEventHandler = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    })
   }
-
-  const changeStartTime = event => {
-    setStartTime(event.target.value)
-  }
-
-  const changeEndTime = event => {
-    setEndTime(event.target.value)
-  }
-
-  const createEvent = async e => {
+  
+  submitEventHandler = async e => {
     e.preventDefault();
+    const { title, description, date, startTime, endTime } = this.state;
 
     const [year, month, day] = date.split('-')
     const [startHours, startMinutes] = startTime.split(':')
@@ -40,62 +33,64 @@ const Modal = ( { displayModal, updateEvents }) => {
 
     const eventData = {
       title,
-      desctiption,
+      description,
       dateFrom: new Date(year, month - 1, day, startHours, startMinutes),
       dateTo: new Date(year, month - 1, day, endHours, endMinutes)
     }
 
-    displayModal();
-    await fetchCreateEvent(eventData);
-    await updateEvents();
+    this.props.setShowModal(!this.props.showModal);
+    await createEvent(eventData);
+    await this.props.updateEvents();
   }
 
-  return (
+  render() {
+    console.log(this.state)
+    return (
       <div className="modal overlay">
         <div className="modal__content">
           <div className="create-event">
-            <button className="create-event__close-btn" onClick={displayModal}>+</button>
+            <button className="create-event__close-btn" onClick={() => {this.props.setShowModal(!this.props.showModal)}}>+</button>
             <form className="event-form">
               <input
                 type="text"
                 name="title"
                 placeholder="Add title"
                 className="event-form__field"
-                value={title}
-                onChange={changeHandler}
+                value={this.state.title}
+                onChange={this.changeEventHandler}
               />
               <div className="event-form__time">
                 <input
                   type="date"
                   name="date"
                   className="event-form__field" 
-                  value={date}
-                  onChange={changeDate}
+                  value={this.state.date}
+                  onChange={this.changeEventHandler}
                   />
                 <input
                   type="time"
                   name="startTime"
                   className="event-form__field"
-                  value={startTime}
-                  onChange={changeStartTime}
+                  value={this.state.startTime}
+                  onChange={this.changeEventHandler}
                 />
                 <span>-</span>
                 <input
                   type="time"
                   name="endTime"
                   className="event-form__field"
-                  value={endTime}
-                  onChange={changeEndTime}
+                  value={this.state.endTime}
+                  onChange={this.changeEventHandler}
                 />
               </div>
               <textarea
                 name="description"
                 placeholder="Add description"
                 className="event-form__field"
-                value={desctiption}
-                onChange={changeHandler}
+                value={this.state.desctiption}
+                onChange={this.changeEventHandler}
               />
-              <button type="submit" className="event-form__submit-btn" onClick={createEvent}>
+              <button type="submit" className="event-form__submit-btn" onClick={this.submitEventHandler}>
                 Create
               </button>
             </form>
@@ -103,10 +98,13 @@ const Modal = ( { displayModal, updateEvents }) => {
         </div>
       </div>   
   )
+  }
+
 }
 
 Modal.propTypes = {
-  displayModal: PropTypes.func,
+  showModal: PropTypes.bool,
+  setShowModal: PropTypes.func,
   updateEvents: PropTypes.func,
 }
 

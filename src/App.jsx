@@ -9,10 +9,10 @@ import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 import './common.scss';
 
 const App = () => {
-  const [weekStartDate, setWeekDate] = useState(new Date());
+  const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
   const [showModal, setShowModal] = useState(false);
-  const [event, setEvent] = useState([])
+  const [eventsList, setEventsList] = useState([])
 
   const displayModal = () => {
     setShowModal(!showModal);
@@ -27,7 +27,7 @@ const App = () => {
         dateFrom: new Date(dateFrom),
         dateTo: new Date(dateTo),
       }));
-      setEvent(updateEventsList)
+      setEventsList(updateEventsList)
     })
   }
 
@@ -39,18 +39,20 @@ const App = () => {
       <>
         {showModal && (
           <Modal 
-            displayModal={displayModal} 
             updateEvents={updateEvents}
+            showModal={showModal}
+            setShowModal={setShowModal}
           />
         )}
         <Header weekDates={weekDates} 
           weekStartDate={weekStartDate}
-          setWeekDate={setWeekDate}
-          displayModal={displayModal}
+          setWeekStartDate={setWeekStartDate}
+          showModal={showModal}
+          setShowModal={setShowModal}
         />
          <Calendar 
           weekDates={weekDates} 
-          events={event} 
+          events={eventsList} 
           updateEvents={updateEvents}
          />
       </>

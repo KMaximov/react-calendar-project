@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import './header.scss';
 
-const Header = ({ weekDates, setWeekDate, weekStartDate, displayModal }) => {
+const Header = ({ weekDates, setWeekStartDate, weekStartDate, showModal, setShowModal }) => {
   const changeWeek = (event) => {
     if (event.target.className === "navigation__today-btn button") {
-      setWeekDate(new Date())
+      setWeekStartDate(new Date())
     } else if (event.target.className === "fas fa-chevron-left") {
-      setWeekDate(new Date(weekStartDate.setDate(weekStartDate.getDate() - 7)))
+      setWeekStartDate(new Date(weekStartDate.setDate(weekStartDate.getDate() - 7)))
     } else if (event.target.className === "fas fa-chevron-right") {
-      setWeekDate(new Date(weekStartDate.setDate(weekStartDate.getDate() + 7)))
+      setWeekStartDate(new Date(weekStartDate.setDate(weekStartDate.getDate() + 7)))
     }
   }
 
@@ -22,7 +22,7 @@ const Header = ({ weekDates, setWeekDate, weekStartDate, displayModal }) => {
 
   return (
     <header className="header">
-      <button className="button create-event-btn" onClick={displayModal}>
+      <button className="button create-event-btn" onClick={() => {setShowModal(!showModal)}}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>
       <div className="navigation">
@@ -43,9 +43,10 @@ const Header = ({ weekDates, setWeekDate, weekStartDate, displayModal }) => {
 
 Header.propTypes = {
   weekDates: PropTypes.array,
-  setWeekDate: PropTypes.func,
+  setWeekStartDate: PropTypes.func,
   weekStartDate: PropTypes.object,
-  displayModal: PropTypes.func,
+  showModal: PropTypes.bool,
+  setShowModal: PropTypes.func,
 }
 
 export default Header;

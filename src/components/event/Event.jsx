@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { fetchDeleteEvent } from '../../gateway/events';
+import { deleteEvent } from '../../gateway/events';
 import './event.scss';
 
 const Event = ({ height, marginTop, title, time, updateEvents, id }) => {
@@ -14,14 +14,7 @@ const Event = ({ height, marginTop, title, time, updateEvents, id }) => {
     showEventData: true,
   })
 
-  const showEvent = () => {
-    setEventVisibility({
-      showDeleteBtn: !eventVisibility.showDeleteBtn,
-      showEventData: true,
-    })
-  }
-
-  const deleteEvent = e => {
+  const handleDeleteEvent = e => {
     e.stopPropagation();
 
     setEventVisibility({
@@ -29,7 +22,7 @@ const Event = ({ height, marginTop, title, time, updateEvents, id }) => {
       showEventData: false,
     })
 
-    fetchDeleteEvent(id);
+    deleteEvent(id);
     updateEvents();
   }
 
@@ -37,12 +30,18 @@ const Event = ({ height, marginTop, title, time, updateEvents, id }) => {
     <>
       {eventVisibility.showEventData && (
         <>
-          <div style={eventStyle} className="event" onClick={showEvent}>
+          <div style={eventStyle} className="event" onClick={() => {
+              setEventVisibility({
+                showDeleteBtn: !eventVisibility.showDeleteBtn,
+                showEventData: true,
+              })
+            }}
+          >
             <div className="event__title">{title}</div>
             <div className="event__time">{time}</div>
             {eventVisibility.showDeleteBtn && (
               <button className="delete__event-btn">
-                <i className="fas fa-trash-alt" onClick={deleteEvent}>Delete</i>
+                <i className="fas fa-trash-alt" onClick={handleDeleteEvent}>Delete</i>
               </button>
             )}
           </div>

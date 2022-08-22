@@ -10,7 +10,7 @@ export const fetchEventsList = () => {
     })
 }
 
-export const fetchCreateEvent = data => {
+export const createEvent = data => {
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -25,7 +25,7 @@ export const fetchCreateEvent = data => {
     })
 }
 
-export const fetchDeleteEvent = id => {
+export const deleteEvent = id => {
   return fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
   })
